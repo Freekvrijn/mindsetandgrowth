@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>AI-kwartet - 24 technieken</title>
+<style>
+@page { size: A4 landscape; margin: 8mm; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #eceff4; color: #172033; font-family: Arial, sans-serif; }
+.toolbar { padding: 16px; text-align: center; background: #172033; color: white; }
+.toolbar button { border: 0; border-radius: 10px; padding: 10px 18px; font-weight: 700; cursor: pointer; }
+.page { width: 281mm; min-height: 194mm; margin: 10mm auto; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4mm; page-break-after: always; }
+.card { position: relative; border-radius: 5mm; overflow: hidden; background: white; border: 1px solid #cfd5df; box-shadow: 0 2mm 5mm rgba(23,32,51,.1); padding: 16mm 6mm 5mm; }
+.band { position: absolute; inset: 0 0 auto 0; height: 13mm; padding: 4mm 5mm; color: white; font-size: 14px; font-weight: 700; letter-spacing: .3px; }
+.number { position: absolute; right: 5mm; top: 3.1mm; width: 7mm; height: 7mm; border-radius: 50%; background: rgba(255,255,255,.24); display: grid; place-items: center; }
+h2 { margin: 0 0 3mm; font-size: 20px; line-height: 1.05; }
+.icon { font-size: 26px; float: right; margin-left: 4px; }
+.label { margin-top: 2.4mm; font-size: 11px; font-weight: 700; color: #667086; text-transform: uppercase; }
+p { margin: 1mm 0 0; font-size: 12px; line-height: 1.25; }
+.tag { position: absolute; right: 5mm; bottom: 4mm; font-size: 10px; color: #798296; }
+@media print { body { background: white; } .toolbar { display: none; } .page { margin: 0; box-shadow: none; } .card { box-shadow: none; } }
+</style>
+</head>
+<body>
+<div class="toolbar"><strong>AI-kwartet met 24 technieken</strong> &nbsp; <button onclick="print()">Print of bewaar als PDF</button></div>
+<main id="game"></main>
+<script>
+const groups = [
+  {name:'Leren van data', color:'#6F61D8', cards:[
+    ['Supervised learning','📚','Een model leert van voorbeelden met een bekend goed antwoord.','Voorspellen welke leads waarschijnlijk klant worden.','Voorbeelden met invoer én het juiste label.','Een fout of vooroordeel in labels wordt meegeleerd.'],
+    ['Unsupervised learning','🧩','Een model zoekt zelf groepen en patronen zonder vaste labels.','Klanten verdelen in groepen met vergelijkbaar gedrag.','Veel klantkenmerken of acties zonder vooraf gekozen uitkomst.','De gevonden groepen hebben niet vanzelf een nuttige betekenis.'],
+    ['Reinforcement learning','🎯','Een model leert door acties te proberen en beloning te krijgen.','Een aanbevelingssysteem leert welke content reactie oplevert.','Acties, situaties en een duidelijk beloningssignaal.','Een verkeerde beloning kan ongewenst gedrag versterken.'],
+    ['Deep learning','🧠','Een neuraal netwerk leert ingewikkelde patronen uit veel data.','Beeld, spraak of grote hoeveelheden tekst herkennen.','Veel goede voorbeelden en rekenkracht.','Werking is vaak moeilijk uit te leggen.']
+  ]},
+  {name:'Taal begrijpen', color:'#0EAFC4', cards:[
+    ['Natural language processing','💬','Technieken waarmee computers menselijke taal verwerken.','Vragen uit klantmails automatisch indelen.','Tekst, taalregels en vaak gelabelde voorbeelden.','Taal, sarcasme en context kunnen verkeerd worden begrepen.'],
+    ['Large language model','📖','Een groot taalmodel voorspelt passende volgende woorden.','Teksten samenvatten of een eerste antwoord maken.','Zeer veel tekst en een duidelijke prompt.','Het model kan overtuigende fouten maken.'],
+    ['Sentimentanalyse','🙂','Een model schat of tekst positief, neutraal of negatief is.','Reacties op een campagne snel bekijken.','Teksten met voorbeelden van gevoelens of beoordelingen.','Humor en sarcasme geven vaak fouten.'],
+    ['Machinevertaling','🌍','AI zet tekst automatisch om naar een andere taal.','Productteksten voor meerdere landen voorbereiden.','Tekstparen in verschillende talen.','Merktoon en culturele betekenis kunnen veranderen.']
+  ]},
+  {name:'Beeld en geluid', color:'#F05B62', cards:[
+    ['Computer vision','👁️','AI haalt informatie uit afbeeldingen of video.','Controleren of een winkelschap goed is gevuld.','Afbeeldingen of video met duidelijke voorbeelden.','Slechte belichting of een andere camera kan fouten geven.'],
+    ['Beeldclassificatie','🖼️','Een model kiest bij welke categorie een afbeelding hoort.','Productfoto automatisch aan een soort product koppelen.','Gelabelde afbeeldingen per categorie.','Minder voorkomende producten worden sneller verkeerd ingedeeld.'],
+    ['Spraakherkenning','🎙️','AI zet gesproken woorden om naar tekst.','Een verkoopgesprek automatisch uitschrijven.','Audio en de juiste uitgeschreven tekst.','Accenten en achtergrondgeluid kunnen de uitkomst verslechteren.'],
+    ['Spraaksynthese','🔊','AI maakt hoorbare spraak van tekst.','Een digitale assistent een antwoord laten voorlezen.','Tekst en voorbeelden van stemgeluid.','Een nagebootste stem kan zonder toestemming worden misbruikt.']
+  ]},
+  {name:'Voorspellen', color:'#E58B20', cards:[
+    ['Regressie','📈','Een model voorspelt een getal.','De verwachte omzet of klantwaarde schatten.','Historische voorbeelden met een getal als uitkomst.','Een onverwachte marktverandering past niet in oude patronen.'],
+    ['Classificatie','🗂️','Een model kiest één of meer vaste categorieën.','Een lead indelen als laag, normaal of hoog kansrijk.','Voorbeelden met de juiste categorie.','Een harde categorie kan twijfel verbergen.'],
+    ['Anomaliedetectie','🚨','AI zoekt situaties die sterk afwijken van normaal gedrag.','Mogelijke fraude of een plotselinge daling herkennen.','Veel voorbeelden van normaal gedrag.','Nieuw maar normaal gedrag kan onterecht verdacht lijken.'],
+    ['Tijdreeksvoorspelling','📅','Een model gebruikt patronen door de tijd om vooruit te kijken.','Verkoop per week of seizoen voorspellen.','Historische gegevens met een vaste tijdsindeling.','Een crisis of actie kan het patroon plots veranderen.']
+  ]},
+  {name:'Aanbevelen en maken', color:'#2E9B70', cards:[
+    ['Aanbevelingssysteem','🎵','AI rangschikt producten of content per gebruiker.','Muziek, video of een product aanbevelen.','Kliks, aankopen, kijktijd en productinformatie.','Een filterbubbel kan steeds meer van hetzelfde tonen.'],
+    ['Tekstgeneratie','✍️','AI maakt nieuwe tekst op basis van een opdracht.','Een eerste versie van een nieuwsbrief schrijven.','Een prompt, context en voorbeelden van gewenste toon.','Feiten en bronnen moeten worden gecontroleerd.'],
+    ['Beeldgeneratie','🎨','AI maakt een nieuw beeld vanuit tekst of voorbeelden.','Een campagneconcept of productachtergrond maken.','Een duidelijke beschrijving en eventueel referentiebeelden.','Auteursrecht, stereotypen en vreemde details vragen aandacht.'],
+    ['Synthetische data','🧪','AI maakt kunstmatige voorbeelden die op echte data lijken.','Een zeldzame situatie vaker in een testset opnemen.','Een model van de echte verdeling en duidelijke privacyregels.','Kunstmatige data kunnen bestaande fouten herhalen.']
+  ]},
+  {name:'Interactie en besluiten', color:'#39445A', cards:[
+    ['Chatbot','🤖','Een systeem voert een gesprek via tekst of spraak.','Veelgestelde klantvragen beantwoorden.','Kennisbank, gesprekstekst en regels voor doorsturen.','De bot moet bij twijfel een medewerker inschakelen.'],
+    ['Expertsysteem','🧑‍⚖️','Een systeem gebruikt vaste kennisregels om advies te geven.','Controleren of een aanvraag aan voorwaarden voldoet.','Regels van experts en gegevens over de situatie.','Verouderde regels geven verkeerde adviezen.'],
+    ['AI-automatisering','⚙️','AI herkent informatie en start daarna een vaste workflow.','Een factuur uitlezen en naar de juiste medewerker sturen.','Documenten, categorieën en procesregels.','Een fout kan automatisch in meerdere stappen doorgaan.'],
+    ['Gezichtsherkenning','🪪','AI vergelijkt kenmerken van gezichten.','Identiteit controleren bij toegang tot een dienst.','Gezichtsbeelden en een betrouwbare referentie.','Privacy, toestemming en ongelijke foutpercentages zijn grote risico’s.']
+  ]}
+];
+const main=document.getElementById('game');
+let all=[];
+groups.forEach((g,gi)=>g.cards.forEach((c,ci)=>all.push({g,gi,ci,c})));
+for(let p=0;p<3;p++){
+  const page=document.createElement('section'); page.className='page';
+  all.slice(p*8,p*8+8).forEach(({g,gi,ci,c})=>{
+    const card=document.createElement('article'); card.className='card';
+    card.innerHTML=`<div class="band" style="background:${g.color}">${g.name}<span class="number">${ci+1}</span></div><span class="icon">${c[1]}</span><h2>${c[0]}</h2><div class="label">Uitleg</div><p>${c[2]}</p><div class="label">Toepassing</div><p>${c[3]}</p><div class="label">Data</div><p>${c[4]}</p><div class="label">Let op</div><p>${c[5]}</p><span class="tag">Kwartet ${gi+1} van 6</span>`;
+    page.appendChild(card);
+  });
+  main.appendChild(page);
+}
+</script>
+</body>
+</html>

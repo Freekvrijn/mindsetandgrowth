@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs><style>.h1{font:700 74px Arial;fill:#fff}.h2{font:700 38px Arial;fill:#172033}.body{font:28px Arial;fill:#39445a}.num{font:700 34px Arial;fill:#fff}.slogan{font:700 44px Arial;fill:#172033}</style></defs>
+  <rect width="1240" height="1754" fill="#f8fafd"/>
+  <rect x="0" y="0" width="1240" height="330" fill="#172033"/>
+  <text x="80" y="115" class="h1">DENK EERST.</text>
+  <text x="80" y="210" class="h1" fill="#9decf4">GEBRUIK AI DAARNA.</text>
+  <text x="82" y="280" font-family="Arial" font-size="28" fill="#dce2f0">Kritisch AI-gebruik in marketing en sales</text>
+  <text x="80" y="425" class="h2">3 valkuilen</text>
+  <rect x="80" y="470" rx="28" width="1080" height="170" fill="#fff0f1"/><circle cx="145" cy="555" r="38" fill="#ff5d62"/><text x="145" y="567" text-anchor="middle" class="num">1</text><text x="210" y="535" class="h2">Een nette tekst lijkt snel betrouwbaar</text><text x="210" y="585" class="body">AI kan feiten, aannames en verzonnen details door elkaar halen.</text>
+  <rect x="80" y="670" rx="28" width="1080" height="170" fill="#f4f2ff"/><circle cx="145" cy="755" r="38" fill="#8e79e8"/><text x="145" y="767" text-anchor="middle" class="num">2</text><text x="210" y="735" class="h2">Bias blijft vaak onzichtbaar</text><text x="210" y="785" class="body">Data en prompts kunnen groepen oneerlijk behandelen.</text>
+  <rect x="80" y="870" rx="28" width="1080" height="170" fill="#eafbfd"/><circle cx="145" cy="955" r="38" fill="#15c5d8"/><text x="145" y="967" text-anchor="middle" class="num">3</text><text x="210" y="935" class="h2">Meer output is niet altijd beter</text><text x="210" y="985" class="body">Snel gemaakte content kan vaag, fout of niet onderscheidend zijn.</text>
+  <text x="80" y="1140" class="h2">3 controles vóór je publiceert</text>
+  <text x="100" y="1215" class="body">✓ Controleer feiten bij de oorspronkelijke bron.</text>
+  <text x="100" y="1280" class="body">✓ Vraag welke informatie ontbreekt en wie nadeel kan hebben.</text>
+  <text x="100" y="1345" class="body">✓ Pas de output zelf aan op doel, doelgroep en toon.</text>
+  <rect x="80" y="1435" rx="32" width="1080" height="190" fill="#9decf4"/>
+  <text x="620" y="1515" text-anchor="middle" class="slogan">AI geeft een antwoord.</text>
+  <text x="620" y="1580" text-anchor="middle" class="slogan">Jij bepaalt of het goed genoeg is.</text>
+  <text x="80" y="1695" font-family="Arial" font-size="22" fill="#566176">Poster voor een toekomstige AI Marketing- en Salesadviseur</text>
+</svg>
