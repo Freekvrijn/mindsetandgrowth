@@ -132,6 +132,12 @@ main { padding-bottom: 5rem; }
 .portfolio-item { display: flex; flex-direction: column; min-height: 265px; padding: 1.5rem; border: 1px solid var(--line); border-radius: 18px; background: var(--white); box-shadow: 0 8px 28px rgba(20,43,83,.045); }
 .portfolio-item h3 { margin: 1rem 0 .5rem; font-size: 1.35rem; }
 .portfolio-item p { margin: 0; color: var(--muted); }
+.source-slide { margin: 1rem 0 0; }
+.source-slide a { display: block; border-radius: 12px; overflow: hidden; background: #eef2f7; border: 1px solid var(--line); }
+.source-slide img { display: block; width: 100%; height: auto; transition: transform .2s ease; }
+.source-slide a:hover img { transform: scale(1.01); }
+.source-slide figcaption { padding-top: .45rem; color: var(--muted); font-size: .78rem; }
+.source-slide.wide { margin: 1.25rem 0 1.5rem; }
 .item-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .status { display: inline-flex; border-radius: 999px; padding: .26rem .66rem; font-size: .75rem; line-height: 1.3; font-weight: 800; }
 .status-ready { background: #dff8ec; color: #086447; }

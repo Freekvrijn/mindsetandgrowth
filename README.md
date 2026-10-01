@@ -8,6 +8,7 @@ Deze statische website bevat de Growth Map van Freek van Rijn voor week 1 tot en
 - `week3.html` - uitgebreide uitwerking van week 3
 - `week5.html` - uitgebreide samenvatting van week 5
 - `styles.css` - opmaak voor alle pagina's
+- `assets/opdracht-slides` - afbeeldingen van de 17 originele opdrachtdia's
 - `portfolio/opdrachten` - alle opdrachtbestanden
 - `portfolio/presentaties` - het gebruikte lesmateriaal
 
