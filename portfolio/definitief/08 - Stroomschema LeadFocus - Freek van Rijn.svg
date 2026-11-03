@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="840" viewBox="0 0 1400 840">
+  <defs>
+    <style>
+      .title{font:700 42px Arial;fill:#172033}.head{font:700 25px Arial;fill:#172033}.body{font:20px Arial;fill:#566176}.small{font:18px Arial;fill:#566176}.arrow{stroke:#ff5d62;stroke-width:8;fill:none;marker-end:url(#m)}
+    </style>
+    <marker id="m" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ff5d62"/></marker>
+  </defs>
+  <rect width="1400" height="840" fill="#f8fafd"/>
+  <text x="70" y="80" class="title">LeadFocus: van nieuwe lead naar menselijke beslissing</text>
+  <rect x="70" y="160" rx="26" width="250" height="180" fill="#eafbfd"/>
+  <text x="195" y="215" text-anchor="middle" class="head">Nieuwe lead</text>
+  <text x="195" y="260" text-anchor="middle" class="body">Formulier, e-mail</text><text x="195" y="290" text-anchor="middle" class="body">of social media</text>
+  <path d="M320 250 H410" class="arrow"/>
+  <rect x="430" y="160" rx="26" width="250" height="180" fill="#f4f2ff"/>
+  <text x="555" y="215" text-anchor="middle" class="head">Datacontrole</text>
+  <text x="555" y="260" text-anchor="middle" class="body">Leeg, dubbel of</text><text x="555" y="290" text-anchor="middle" class="body">onlogisch?</text>
+  <path d="M680 250 H770" class="arrow"/>
+  <rect x="790" y="160" rx="26" width="250" height="180" fill="#fff0f1"/>
+  <text x="915" y="215" text-anchor="middle" class="head">AI-classificatie</text>
+  <text x="915" y="260" text-anchor="middle" class="body">Laag, normaal of</text><text x="915" y="290" text-anchor="middle" class="body">hoog prioriteit</text>
+  <path d="M1040 250 H1130" class="arrow"/>
+  <rect x="1150" y="160" rx="26" width="180" height="180" fill="#eaf7f1"/>
+  <text x="1240" y="215" text-anchor="middle" class="head">Uitleg</text>
+  <text x="1240" y="260" text-anchor="middle" class="body">Belangrijkste</text><text x="1240" y="290" text-anchor="middle" class="body">redenen</text>
+  <path d="M1240 340 V435" class="arrow"/>
+  <rect x="1035" y="455" rx="26" width="295" height="180" fill="#f4f2ff"/>
+  <text x="1182" y="510" text-anchor="middle" class="head">Medewerker beslist</text>
+  <text x="1182" y="555" text-anchor="middle" class="body">Controleren, aanpassen</text><text x="1182" y="585" text-anchor="middle" class="body">en opvolgen</text>
+  <path d="M1035 545 H905" class="arrow"/>
+  <rect x="600" y="455" rx="26" width="285" height="180" fill="#eafbfd"/>
+  <text x="742" y="510" text-anchor="middle" class="head">Actie in CRM</text>
+  <text x="742" y="555" text-anchor="middle" class="body">Taak, reactie of vraag</text><text x="742" y="585" text-anchor="middle" class="body">om extra informatie</text>
+  <path d="M600 545 H470" class="arrow"/>
+  <rect x="130" y="455" rx="26" width="320" height="180" fill="#eaf7f1"/>
+  <text x="290" y="510" text-anchor="middle" class="head">Feedback en controle</text>
+  <text x="290" y="555" text-anchor="middle" class="body">Klopte de prioriteit?</text><text x="290" y="585" text-anchor="middle" class="body">Zijn groepen eerlijk behandeld?</text>
+  <path d="M290 455 V390 H915 V340" class="arrow"/>
+  <text x="700" y="760" text-anchor="middle" class="small">Het model adviseert. Een medewerker neemt de beslissing en kan de score altijd aanpassen.</text>
+</svg>

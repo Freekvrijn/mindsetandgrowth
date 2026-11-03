@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Kwartet — leer 24 AI-technieken spelenderwijs</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#12142B;
+  --bg-soft:#1B1E3D;
+  --bg-soft2:#232752;
+  --line: rgba(246,244,239,0.14);
+  --surface:#F6F4EF;
+  --surface2:#EFEBDF;
+  --ink:#14162B;
+  --ink-soft:#5A5C78;
+  --paper-line:#E1DDCF;
+  --cream:#F6F4EF;
+
+  --c-ml:#3E63DD;      --c-ml-soft:#3E63DD22;
+  --c-dl:#8452D5;      --c-dl-soft:#8452D522;
+  --c-cv:#DD8B1E;      --c-cv-soft:#DD8B1E22;
+  --c-nlp:#2E9E4F;     --c-nlp-soft:#2E9E4F22;
+  --c-data:#1EA7C4;    --c-data-soft:#1EA7C422;
+  --c-rl:#D5443E;      --c-rl-soft:#D5443E22;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:radial-gradient(1200px 800px at 85% -10%, #22265A 0%, var(--bg) 55%);
+  color:var(--cream);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{font-family:'Sora',sans-serif; font-weight:800; letter-spacing:-0.01em;}
+button{font-family:'Inter',sans-serif; cursor:pointer;}
+.hidden{display:none !important;}
+#app{min-height:100vh; display:flex; flex-direction:column;}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 28px; border-bottom:1px solid var(--line);
+  flex-wrap:wrap; gap:12px;
+}
+.brand{display:flex; align-items:center; gap:10px; font-family:'Sora',sans-serif; font-weight:700; font-size:18px;}
+.brand .dot{width:10px;height:10px;border-radius:3px; background:linear-gradient(135deg, var(--c-ml), var(--c-rl)); display:inline-block;}
+.nav-links{display:flex; gap:8px;}
+.nav-btn{
+  background:transparent; border:1px solid var(--line); color:var(--cream);
+  padding:9px 16px; border-radius:8px; font-size:14px; font-weight:600;
+  transition:background .15s, border-color .15s;
+}
+.nav-btn:hover{background:var(--bg-soft2); border-color:rgba(246,244,239,0.3);}
+.nav-btn.primary{background:var(--cream); color:var(--ink); border-color:var(--cream);}
+.nav-btn.primary:hover{background:#fff;}
+
+main{flex:1; display:flex; flex-direction:column;}
+
+/* ---------- HOME ---------- */
+.home-wrap{
+  flex:1; display:grid; grid-template-columns: 1.1fr 0.9fr; gap:40px;
+  align-items:center; padding:50px 60px; max-width:1240px; margin:0 auto; width:100%;
+}
+.home-copy .eyebrow{color:#A9ACD6; font-size:14px; margin-bottom:14px; font-weight:600;}
+.home-copy h1{font-size:52px; line-height:1.04; margin:0 0 18px;}
+.home-copy p.lead{color:#C7C9E6; font-size:17px; line-height:1.6; max-width:480px; margin:0 0 28px;}
+.home-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:34px;}
+.btn-lg{
+  padding:14px 24px; border-radius:10px; font-weight:700; font-size:15px; border:1px solid transparent;
+}
+.btn-lg.solid{background:var(--cream); color:var(--ink);}
+.btn-lg.solid:hover{background:#fff;}
+.btn-lg.ghost{background:transparent; color:var(--cream); border-color:var(--line);}
+.btn-lg.ghost:hover{border-color:rgba(246,244,239,0.35);}
+.stat-row{display:flex; gap:26px; flex-wrap:wrap;}
+.stat{}
+.stat b{display:block; font-family:'Sora',sans-serif; font-size:24px;}
+.stat span{color:#9FA2C9; font-size:13px;}
+
+.hero-fan{position:relative; height:360px;}
+.hero-card{
+  position:absolute; width:190px; height:266px; border-radius:16px; top:40px; left:50%;
+  background:var(--surface); box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  transform-origin:bottom center; padding:16px; display:flex; flex-direction:column;
+  opacity:0; animation:cardIn .55s cubic-bezier(.2,.8,.2,1) forwards;
+  border:1px solid rgba(0,0,0,0.06);
+}
+.hero-card .tag{font-size:11px; font-weight:700; color:#fff; padding:4px 8px; border-radius:5px; width:fit-content;}
+.hero-card .icon{font-size:26px; margin:10px 0 4px;}
+.hero-card .name{font-family:'Sora',sans-serif; font-weight:700; color:var(--ink); font-size:15px; line-height:1.2;}
+.hero-card .fill{flex:1;}
+.hero-card .bar{height:6px; border-radius:3px; background:var(--surface2); margin-top:5px;}
+@keyframes cardIn{ to{opacity:1;} }
+.hc1{transform:translate(-50%,0) rotate(-16deg); animation-delay:.05s;}
+.hc2{transform:translate(-50%,0) rotate(-5deg); animation-delay:.15s;}
+.hc3{transform:translate(-50%,0) rotate(6deg); animation-delay:.25s;}
+.hc4{transform:translate(-50%,0) rotate(17deg); animation-delay:.35s;}
+
+@media (max-width: 880px){
+  .home-wrap{grid-template-columns:1fr; padding:30px 22px;}
+  .home-copy h1{font-size:38px;}
+  .hero-fan{height:260px; margin-top:10px;}
+  .hero-card{width:140px; height:196px; top:20px;}
+}
+/* ---------- BROWSE (Kaartenboek) ---------- */
+.browse-wrap{max-width:1100px; margin:0 auto; padding:40px 24px 70px; width:100%;}
+.browse-header{margin-bottom:28px;}
+.browse-header h2{font-size:30px; margin:0 0 8px;}
+.browse-header p{color:#C7C9E6; margin:0; max-width:640px; line-height:1.55;}
+.cat-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:26px;}
+@media (max-width:760px){ .cat-grid{grid-template-columns:1fr;} }
+.cat-tile{
+  border-radius:14px; padding:20px; cursor:pointer; border:1px solid var(--line);
+  background:var(--bg-soft); transition:transform .15s, border-color .15s;
+}
+.cat-tile:hover{transform:translateY(-3px); border-color:rgba(246,244,239,0.35);}
+.cat-tile .icon{font-size:28px;}
+.cat-tile h3{font-size:17px; margin:10px 0 4px; font-family:'Sora',sans-serif;}
+.cat-tile p{margin:0; font-size:13px; color:#A9ACD6;}
+.cat-tile .count{margin-top:12px; font-size:12px; color:#7F82AE;}
+
+.cat-detail{margin-top:10px;}
+.cat-detail-head{display:flex; align-items:center; gap:14px; margin-bottom:20px;}
+.back-link{background:transparent; border:none; color:#C7C9E6; font-size:14px; font-weight:600; padding:8px 0; display:flex; align-items:center; gap:6px;}
+.card-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:18px;}
+@media (max-width:760px){ .card-grid{grid-template-columns:1fr;} }
+
+.study-card{background:var(--surface); border-radius:16px; overflow:hidden; color:var(--ink); box-shadow:0 14px 30px rgba(0,0,0,0.25);}
+.study-card .head{padding:16px 18px; color:#fff;}
+.study-card .head .eyebrow{font-size:12px; opacity:.85; font-weight:600;}
+.study-card .head h4{margin:4px 0 0; font-size:19px; font-family:'Sora',sans-serif;}
+.study-card .body{padding:16px 18px 20px;}
+.field{margin-bottom:12px;}
+.field:last-child{margin-bottom:0;}
+.field .flabel{display:flex; align-items:center; gap:7px; font-size:12px; font-weight:700; color:var(--ink-soft); margin-bottom:3px;}
+.field p{margin:0; font-size:14px; line-height:1.5;}
+
+/* ---------- GAME ---------- */
+.game-wrap{flex:1; display:grid; grid-template-columns: 230px 1fr; gap:0; align-items:start;}
+.side-panel{border-right:1px solid var(--line); padding:22px 18px; display:flex; flex-direction:column; gap:14px;}
+.opp-card{border:1px solid var(--line); border-radius:12px; padding:12px; background:var(--bg-soft);}
+.opp-card.active{border-color:#fff; box-shadow:0 0 0 2px rgba(255,255,255,0.15) inset;}
+.opp-card .name{font-weight:700; font-size:14px; margin-bottom:6px; display:flex; justify-content:space-between;}
+.opp-card .name .n{color:#9FA2C9; font-weight:500; font-size:12px;}
+.opp-hand{display:flex; gap:3px; flex-wrap:wrap;}
+.mini-back{width:16px; height:22px; border-radius:3px; background:linear-gradient(135deg,#3E63DD,#8452D5);}
+.opp-sets{display:flex; gap:4px; flex-wrap:wrap; margin-top:8px;}
+.set-chip{width:16px; height:16px; border-radius:4px;}
+
+.table-area{padding:20px 26px 30px; display:flex; flex-direction:column; gap:16px; min-width:0;}
+.table-top{display:flex; justify-content:space-between; align-items:center;}
+.table-top h2{font-size:20px; margin:0;}
+.game-log{
+  background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:12px 16px;
+  height:110px; overflow-y:auto; font-size:13px; color:#C7C9E6; line-height:1.7;
+}
+.game-log .entry b{color:#fff;}
+.action-zone{
+  background:var(--bg-soft2); border:1px solid var(--line); border-radius:14px; padding:18px 20px; min-height:120px;
+}
+.action-zone h3{margin:0 0 12px; font-size:15px; font-family:'Sora',sans-serif;}
+.choice-row{display:flex; gap:10px; flex-wrap:wrap;}
+.choice-btn{
+  background:var(--bg-soft); border:1px solid var(--line); color:var(--cream);
+  padding:10px 14px; border-radius:9px; font-size:13.5px; font-weight:600; text-align:left;
+  transition:border-color .15s, background .15s;
+}
+.choice-btn:hover{border-color:rgba(246,244,239,0.4); background:#2A2E5E;}
+.choice-btn .sub{display:block; font-weight:400; font-size:11.5px; color:#9FA2C9; margin-top:2px;}
+
+.hand-area{margin-top:6px;}
+.hand-label{font-size:13px; color:#9FA2C9; margin-bottom:8px; font-weight:600;}
+.hand-row{display:flex; gap:10px; flex-wrap:wrap;}
+.pcard{
+  width:118px; border-radius:11px; padding:10px; background:var(--surface); color:var(--ink);
+  cursor:pointer; border:2px solid transparent; transition:transform .12s, border-color .12s;
+}
+.pcard:hover{transform:translateY(-4px);}
+.pcard.selected{border-color:#fff;}
+.pcard .tag{font-size:9.5px; font-weight:700; color:#fff; padding:3px 6px; border-radius:5px; width:fit-content;}
+.pcard .icon{font-size:18px; margin:6px 0 3px;}
+.pcard .name{font-family:'Sora',sans-serif; font-weight:700; font-size:12px; line-height:1.25;}
+
+/* ---------- MODAL ---------- */
+.modal-backdrop{
+  position:fixed; inset:0; background:rgba(9,10,24,0.72); display:flex; align-items:center; justify-content:center;
+  padding:20px; z-index:50;
+}
+.modal{background:var(--bg-soft); border:1px solid var(--line); border-radius:18px; max-width:640px; width:100%; padding:28px; max-height:86vh; overflow-y:auto;}
+.modal h2{margin:0 0 6px; font-size:22px;}
+.modal p.lead{color:#C7C9E6; margin:0 0 20px; font-size:14px;}
+.modal-close-row{display:flex; justify-content:flex-end; margin-top:22px;}
+
+.quartet-banner{
+  display:flex; align-items:center; gap:12px; padding:14px 18px; border-radius:12px; margin-bottom:18px; color:#fff;
+}
+.quartet-banner .icon{font-size:26px;}
+.quartet-banner h3{margin:0; font-size:16px; font-family:'Sora',sans-serif;}
+.quartet-banner p{margin:2px 0 0; font-size:12.5px; opacity:.9;}
+
+.rules-list{padding-left:20px; margin:0; color:#DFE1F5; font-size:14.5px; line-height:1.85;}
+.rules-list li{margin-bottom:6px;}
+
+.footer-note{padding:16px 26px; border-top:1px solid var(--line); font-size:12.5px; color:#8285AB; text-align:center;}
+
+/* ---------- MOBILE OVERRIDES (kept last on purpose so they win the cascade) ---------- */
+@media (max-width: 640px){
+  .topbar{padding:14px 16px;}
+  .nav-links{gap:6px; width:100%;}
+  .nav-btn{padding:8px 12px; font-size:13px; flex:1; text-align:center;}
+  .brand{font-size:16px;}
+  .game-wrap{grid-template-columns:1fr;}
+  .side-panel{border-right:none; border-bottom:1px solid var(--line); flex-direction:row; flex-wrap:wrap; padding:14px 14px;}
+  .side-panel .opp-card{flex:1; min-width:130px;}
+  .table-area{padding:16px 16px 24px;}
+  .pcard{width:104px;}
+  .hand-row{gap:8px;}
+  .choice-row{flex-direction:column;}
+  .choice-btn{width:100%;}
+  .card-grid{grid-template-columns:1fr;}
+  .cat-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* =========================================================================
+   DATA — 6 kwartetten (categorieën) x 4 kaarten = 24 AI-technieken.
+   De indeling in 6 categorieën is tot stand gekomen met behulp van
+   TF-IDF + K-Means clustering (zie de handleiding voor de volledige
+   verantwoording van deze AI-toepassing).
+   ========================================================================= */
+const CATEGORIES = [
+  {
+    id:"ml", naam:"Klassieke Machine Learning", kort:"Klassieke ML", sub:"Voorspellen & classificeren",
+    kleur:"#3E63DD", icon:"📈",
+    cards:[
+      {naam:"Lineaire regressie",
+       uitleg:"Een algoritme dat het verband tussen invoervariabelen en een getal zoekt door er de best passende rechte lijn doorheen te trekken.",
+       toepassing:"Een makelaar voorspelt de verkoopprijs van een huis op basis van oppervlakte, locatie en bouwjaar.",
+       data:"Numerieke, gelabelde historische data met een bekende uitkomst (bijv. eerder verkochte huizen met prijs).",
+       aandachtspunt:"Werkt alleen goed bij (ongeveer) lineaire verbanden; uitschieters kunnen de lijn flink laten kantelen."},
+      {naam:"Logistische regressie",
+       uitleg:"Berekent de kans dat iets tot één van twee categorieën behoort, bijvoorbeeld 'wel/niet'. De uitkomst is een percentage.",
+       toepassing:"Een bank voorspelt of een klant een lening wel of niet op tijd terugbetaalt.",
+       data:"Gelabelde historische data met twee mogelijke uitkomsten per rij.",
+       aandachtspunt:"Kan bestaande vooroordelen uit historische data overnemen, bijvoorbeeld bij eerdere afwijzingen."},
+      {naam:"Beslisboom",
+       uitleg:"Splitst de data stap voor stap op basis van de meest onderscheidende vraag, tot elke tak op een voorspelling uitkomt.",
+       toepassing:"Een verzekeraar bepaalt het premierisico op basis van leeftijd, rijervaring en type auto.",
+       data:"Gestructureerde tabeldata met kenmerken en een bekende uitkomst per rij.",
+       aandachtspunt:"Eén beslisboom kan snel 'overfitten': te precies de trainingsdata uit het hoofd leren."},
+      {naam:"Random Forest",
+       uitleg:"Laat honderden beslisbomen onafhankelijk een voorspelling doen en neemt daarna het gemiddelde of de meeste stemmen.",
+       toepassing:"Een ziekenhuis schat het risico op complicaties in op basis van meetwaarden van een patiënt.",
+       data:"Gestructureerde tabeldata, net als bij een beslisboom, bij voorkeur in grotere hoeveelheid.",
+       aandachtspunt:"Preciezer dan één boom, maar lastiger uit te leggen waaróm het model een keuze maakt."},
+    ]
+  },
+  {
+    id:"dl", naam:"Deep Learning", kort:"Deep Learning", sub:"Neurale netwerk-architecturen",
+    kleur:"#8452D5", icon:"🧠",
+    cards:[
+      {naam:"Convolutional Neural Network",
+       uitleg:"Een neuraal netwerk dat met kleine filters over een afbeelding schuift om patronen als randen en vormen te herkennen.",
+       toepassing:"Een zelfrijdende auto herkent verkeersborden en voetgangers via camerabeelden.",
+       data:"Grote hoeveelheden afbeeldingen, het liefst duizenden per categorie.",
+       aandachtspunt:"Vraagt veel rekenkracht en data; presteert slecht op beelden die sterk afwijken van de training."},
+      {naam:"Recurrent Neural Network",
+       uitleg:"Een neuraal netwerk met een soort geheugen: de vorige stap wordt meegenomen bij de volgende, geschikt voor reeksen.",
+       toepassing:"Het voorspellen van het volgende woord tijdens het typen op je smartphone.",
+       data:"Data met een duidelijke volgorde in de tijd, zoals tekst, spraak of sensormetingen.",
+       aandachtspunt:"Heeft moeite met verbanden ver terug in een lange reeks; vaak vervangen door de transformer."},
+      {naam:"Transformer",
+       uitleg:"Berekent met een aandachtsmechanisme voor elk woord hoe belangrijk alle andere woorden in de zin zijn, allemaal tegelijk.",
+       toepassing:"De basisarchitectuur achter moderne chatbots en taalmodellen.",
+       data:"Zeer grote hoeveelheden tekst (of andere reeksdata) om aandachtspatronen te leren.",
+       aandachtspunt:"Training kost enorm veel rekenkracht; het model herkent statistische patronen, geen betekenis."},
+      {naam:"Generative Adversarial Network",
+       uitleg:"Twee neurale netwerken werken tegen elkaar: één maakt nepafbeeldingen, de ander raadt of iets echt of nep is.",
+       toepassing:"Het genereren van realistische productfoto's of gezichten van mensen die niet bestaan.",
+       data:"Een grote verzameling voorbeeldafbeeldingen uit het domein dat nagemaakt moet worden.",
+       aandachtspunt:"Kan overtuigend nepmateriaal (deepfakes) opleveren; roept vragen op over misbruik."},
+    ]
+  },
+  {
+    id:"cv", naam:"Computer Vision", kort:"Computer Vision", sub:"Kijken naar beeld",
+    kleur:"#DD8B1E", icon:"👁️",
+    cards:[
+      {naam:"Beeldclassificatie",
+       uitleg:"Kent aan een hele afbeelding één label toe, bijvoorbeeld 'kat' of 'hond', op basis van geleerde patronen.",
+       toepassing:"Een app sorteert vakantiefoto's automatisch op onderwerp, zoals strand of eten.",
+       data:"Veel afbeeldingen die al voorzien zijn van het juiste label per categorie.",
+       aandachtspunt:"Een ondervertegenwoordigde categorie in de trainingsdata wordt slechter herkend."},
+      {naam:"Objectdetectie",
+       uitleg:"Zoekt meerdere objecten in een afbeelding en tekent er een kader (bounding box) met label omheen.",
+       toepassing:"Een supermarktkassa herkent automatisch welke producten in de scanner liggen.",
+       data:"Afbeeldingen waarin objecten zijn omkaderd én gelabeld.",
+       aandachtspunt:"Overlappende of kleine objecten worden makkelijk gemist of verward."},
+      {naam:"Gezichtsherkenning",
+       uitleg:"Zet unieke kenmerken van een gezicht om in een digitale 'vingerafdruk' om personen te herkennen of vergelijken.",
+       toepassing:"Een smartphone ontgrendelt alleen als hij het gezicht van de eigenaar herkent.",
+       data:"Veel gezichtsafbeeldingen per persoon, bij voorkeur met verschillende hoeken en belichting.",
+       aandachtspunt:"Grote impact op privacy; nauwkeurigheid verschilt aantoonbaar als trainingsdata niet divers is."},
+      {naam:"Beeldsegmentatie",
+       uitleg:"Kent aan élke pixel van een afbeelding een klasse toe, zodat de precieze vorm van een object zichtbaar wordt.",
+       toepassing:"Een MRI-scanner markeert exact de contouren van een tumor voor een arts.",
+       data:"Afbeeldingen waarbij elke pixel al met de hand is gelabeld — zeer tijdrovend om te maken.",
+       aandachtspunt:"Het aanleveren van pixel-nauwkeurige trainingsdata is arbeidsintensief en foutgevoelig."},
+    ]
+  },
+  {
+    id:"nlp", naam:"Taal & Tekst", kort:"Taal & Tekst", sub:"Natural Language Processing",
+    kleur:"#2E9E4F", icon:"💬",
+    cards:[
+      {naam:"Sentimentanalyse",
+       uitleg:"Analyseert woordkeuze en zinsbouw om te bepalen of de toon van een tekst positief, negatief of neutraal is.",
+       toepassing:"Een bedrijf monitort of klantreviews over een nieuw product overwegend positief zijn.",
+       data:"Teksten die gelabeld zijn met het bijbehorende sentiment, zoals reviews met sterrenwaardering.",
+       aandachtspunt:"Sarcasme, ironie en dubbele ontkenningen worden vaak verkeerd geïnterpreteerd."},
+      {naam:"Named Entity Recognition",
+       uitleg:"Herkent en labelt specifieke begrippen in tekst, zoals namen van personen, bedrijven of plaatsen.",
+       toepassing:"Een nieuwsredactie haalt automatisch alle genoemde personen en organisaties uit artikelen.",
+       data:"Teksten waarin de entiteiten al met de hand zijn aangestreept en gelabeld.",
+       aandachtspunt:"Namen die op meerdere manieren geschreven of dubbelzinnig zijn, leveren makkelijk fouten op."},
+      {naam:"Large Language Model",
+       uitleg:"Een zeer groot taalmodel dat voorspelt welk woord logisch volgt en zo samenhangende tekst genereert.",
+       toepassing:"Een chatbot die vragen van studenten beantwoordt of een lang rapport samenvat.",
+       data:"Enorme hoeveelheden tekst uit boeken, websites en artikelen.",
+       aandachtspunt:"Kan zelfverzekerd klinkende, onjuiste informatie geven ('hallucineren'); altijd controleren."},
+      {naam:"Machinevertaling",
+       uitleg:"Vertaalt automatisch een zin van de ene naar de andere taal met behulp van een taalmodel.",
+       toepassing:"Direct een buitenlandse website of e-mail in het Nederlands kunnen lezen.",
+       data:"Grote hoeveelheden gekoppelde tekst in twee talen die exact hetzelfde betekenen.",
+       aandachtspunt:"Nuances, humor en vakjargon gaan er nog regelmatig bij verloren of fout vertaald."},
+    ]
+  },
+  {
+    id:"data", naam:"Onbegeleid Leren & Data", kort:"Onbegeleid & Data", sub:"Patronen zonder labels",
+    kleur:"#1EA7C4", icon:"🔍",
+    cards:[
+      {naam:"K-means clustering",
+       uitleg:"Verdeelt data automatisch in een vooraf gekozen aantal groepen, zodat punten binnen een groep zoveel mogelijk op elkaar lijken.",
+       toepassing:"Een winkelketen groepeert klanten in segmenten met vergelijkbaar koopgedrag voor gerichte marketing.",
+       data:"Numerieke data zonder vooraf bekende labels of categorieën.",
+       aandachtspunt:"Je bepaalt vooraf zelf het aantal groepen; een verkeerd aantal geeft een misleidende indeling."},
+      {naam:"Anomaliedetectie",
+       uitleg:"Leert wat 'normaal' gedrag in data is en signaleert automatisch de gevallen die daar duidelijk van afwijken.",
+       toepassing:"Een bank signaleert een verdachte, afwijkende creditcardtransactie binnen enkele seconden.",
+       data:"Veel voorbeelden van normale situaties; afwijkende voorbeelden zijn per definitie schaars.",
+       aandachtspunt:"Te gevoelig ingesteld geeft veel valse meldingen, te ongevoelig mist juist echte afwijkingen."},
+      {naam:"Dimensiereductie (PCA)",
+       uitleg:"Perst een dataset met veel kenmerken samen tot een paar nieuwe kenmerken, met zo min mogelijk verlies aan informatie.",
+       toepassing:"Honderden meetwaarden van een machine samenvatten tot een paar signalen voor een monteur.",
+       data:"Numerieke data met veel kenmerken (kolommen) per rij.",
+       aandachtspunt:"De nieuwe, samengevatte kenmerken zijn vaak lastig te interpreteren; er gaat altijd wat detail verloren."},
+      {naam:"Associatieregels",
+       uitleg:"Zoekt in grote hoeveelheden transacties naar patronen als 'wie A koopt, koopt vaak ook B', zonder labels vooraf.",
+       toepassing:"Een webshop laat zien: 'klanten die dit kochten, kochten ook...' op basis van eerdere bestellingen.",
+       data:"Transactiedata: een lijst van welke items samen in één aankoop of sessie voorkwamen.",
+       aandachtspunt:"Een gevonden verband is een correlatie, geen bewijs van oorzaak-en-gevolg."},
+    ]
+  },
+  {
+    id:"rl", naam:"Reinforcement Learning & Slimme Regels", kort:"RL & Regels", sub:"Leren door te doen, of vaste logica",
+    kleur:"#D5443E", icon:"🎯",
+    cards:[
+      {naam:"Q-learning",
+       uitleg:"Een 'agent' probeert acties uit en onthoudt via beloning en straf welke actie in welke situatie het meeste oplevert.",
+       toepassing:"Een computer leert zelf een bordspel spelen, puur door te oefenen tegen zichzelf.",
+       data:"Geen vaste dataset vooraf, wel een omgeving waarin de agent kan proberen en feedback krijgt.",
+       aandachtspunt:"Kost vaak veel oefenrondes; de agent kan een trucje leren dat wél beloning geeft maar niet bedoeld was."},
+      {naam:"Genetisch algoritme",
+       uitleg:"Laat een groep mogelijke oplossingen 'evolueren': de beste worden gecombineerd en licht gemuteerd, net als bij natuurlijke selectie.",
+       toepassing:"Het optimaliseren van een dienstrooster of route zodat deze zo efficiënt mogelijk is.",
+       data:"Geen trainingsdata nodig, wel een duidelijke rekenregel om te bepalen hoe 'goed' een oplossing is.",
+       aandachtspunt:"Kan blijven hangen in een oplossing die goed genoeg lijkt, terwijl er een betere bestaat."},
+      {naam:"Fuzzy logic",
+       uitleg:"Werkt met vage tussenwaarden zoals 'een beetje warm' in plaats van alleen waar/onwaar, en combineert die met vaste regels.",
+       toepassing:"De klimaatregeling in een trein stelt de temperatuur soepel bij in plaats van hard aan/uit.",
+       data:"Geen trainingsdata; wel door mensen opgestelde regels en grenswaarden.",
+       aandachtspunt:"De regels moeten door een expert bedacht worden en kunnen bij nieuwe situaties tekortschieten."},
+      {naam:"Expertsysteem",
+       uitleg:"Legt de kennis en als-dan-regels van een menselijke expert vast in software die automatisch adviezen geeft.",
+       toepassing:"Een systeem stelt op basis van symptomen een voorlopige diagnose voor aan een arts.",
+       data:"Geen trainingsdata; wel handmatig vastgelegde regels en kennis van vakexperts.",
+       aandachtspunt:"Het systeem is alleen zo goed als de regels erin; past zich niet automatisch aan nieuwe situaties aan."},
+    ]
+  },
+];
+
+/* Bouw platte deck van 24 kaarten */
+let DECK = [];
+CATEGORIES.forEach(cat=>{
+  cat.cards.forEach((c,i)=>{
+    DECK.push({...c, catId:cat.id, catNaam:cat.naam, catKort:cat.kort, kleur:cat.kleur, icon:cat.icon, uid:cat.id+"-"+i});
+  });
+});
+
+/* =========================================================================
+   APP STATE & ROUTING
+   ========================================================================= */
+const app = document.getElementById('app');
+let route = 'home';
+let browseOpenCat = null;
+
+function go(r){ route = r; render(); window.scrollTo(0,0); }
+
+/* =========================================================================
+   GAME STATE
+   ========================================================================= */
+const PLAYER_NAMES = ["Jij","Bot Nova","Bot Sigma","Bot Iris"];
+let G = null; // game state object
+
+function newGame(){
+  const deck = shuffle(DECK.map(c=>c));
+  const hands = [[],[],[],[]];
+  deck.forEach((c,i)=> hands[i%4].push(c));
+  G = {
+    hands,
+    collected:[[],[],[],[]], // array of catIds per player
+    turn:0,
+    log:[],
+    selectedCardUid:null,
+    pendingAskTarget:null,
+    over:false,
+    modalQuartet:null, // {catId, byPlayer}
+    busy:false,
+  };
+  logMsg(`Nieuw spel gestart. Iedereen krijgt 6 kaarten.`);
+}
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function logMsg(html){
+  G.log.push(html);
+  if(G.log.length>60) G.log.shift();
+}
+
+function catInfo(id){ return CATEGORIES.find(c=>c.id===id); }
+
+function missingInCategory(playerIdx, catId){
+  const have = G.hands[playerIdx].filter(c=>c.catId===catId).map(c=>c.naam);
+  const cat = catInfo(catId);
+  return cat.cards.filter(c=> !have.includes(c.naam));
+}
+
+function categoriesPlayerCanAsk(playerIdx){
+  const owned = new Set(G.hands[playerIdx].map(c=>c.catId));
+  return [...owned].filter(catId => missingInCategory(playerIdx, catId).length>0);
+}
+
+function checkQuartetComplete(playerIdx, catId){
+  const have = G.hands[playerIdx].filter(c=>c.catId===catId);
+  if(have.length===4){
+    G.hands[playerIdx] = G.hands[playerIdx].filter(c=>c.catId!==catId);
+    G.collected[playerIdx].push(catId);
+    logMsg(`🎉 <b>${PLAYER_NAMES[playerIdx]}</b> verzamelt het volledige kwartet <b>${catInfo(catId).naam}</b>!`);
+    if(playerIdx===0){
+      G.modalQuartet = {catId, byPlayer:playerIdx};
+    }
+    return true;
+  }
+  return false;
+}
+
+function totalCollected(){ return G.collected.reduce((s,a)=>s+a.length,0); }
+
+function nextAlivePlayer(from){
+  for(let step=1; step<=4; step++){
+    const idx=(from+step)%4;
+    if(G.hands[idx].length>0) return idx;
+  }
+  return -1;
+}
+
+function endGameIfNeeded(){
+  if(totalCollected()>=6){ G.over=true; return true; }
+  // stalemate: active player has cards but no one else does and they can't self-complete
+  const activeHasCards = G.hands[G.turn].length>0;
+  const anyoneElseHasCards = G.hands.some((h,i)=> i!==G.turn && h.length>0);
+  if(activeHasCards && !anyoneElseHasCards){
+    // give remaining incomplete groups nowhere to go -> end game
+    G.over = true;
+    logMsg(`Niemand anders heeft nog kaarten om te vragen — het spel eindigt hier.`);
+    return true;
+  }
+  return false;
+}
+
+/* ---- Menselijke speler acties ---- */
+function playerSelectCard(uid){
+  G.selectedCardUid = (G.selectedCardUid===uid)? null : uid;
+  G.pendingAskTarget = null;
+  render();
+}
+
+function playerChooseCardToAsk(cardName){
+  G.pendingCardName = cardName;
+  render();
+}
+
+function playerAsk(targetIdx, catId, cardName){
+  const target = G.hands[targetIdx];
+  const idxInTarget = target.findIndex(c=> c.catId===catId && c.naam===cardName);
+  logMsg(`Jij vraagt <b>${PLAYER_NAMES[targetIdx]}</b> om de kaart <b>${cardName}</b>.`);
+  G.selectedCardUid=null; G.pendingCardName=null;
+  render();
+  G.busy=true;
+  setTimeout(()=>{
+    if(idxInTarget>-1){
+      const [card] = target.splice(idxInTarget,1);
+      G.hands[0].push(card);
+      logMsg(`✅ Kloppend! <b>${PLAYER_NAMES[targetIdx]}</b> geeft de kaart aan jou. Je mag opnieuw vragen.`);
+      checkQuartetComplete(0, catId);
+      G.busy=false;
+      if(!endGameIfNeeded()) render(); else render();
+    } else {
+      logMsg(`❌ Helaas, <b>${PLAYER_NAMES[targetIdx]}</b> heeft die kaart niet. De beurt gaat naar ${PLAYER_NAMES[targetIdx]}.`);
+      G.turn = targetIdx;
+      G.busy=false;
+      if(!endGameIfNeeded()){ render(); maybeRunBotTurn(); } else render();
+    }
+  }, 700);
+}
+
+/* ---- Bot logica (eenvoudige regelgebaseerde agent) ---- */
+function botTakeTurn(botIdx){
+  if(G.over) return;
+  if(G.hands[botIdx].length===0){
+    G.turn = nextAlivePlayer(botIdx);
+    render();
+    if(G.turn!==0) maybeRunBotTurn();
+    return;
+  }
+  const askable = categoriesPlayerCanAsk(botIdx);
+  if(askable.length===0){
+    // geen enkele categorie om over te vragen (zou zelden voorkomen) -> beurt door
+    G.turn = nextAlivePlayer(botIdx);
+    render();
+    if(G.turn!==0) maybeRunBotTurn();
+    return;
+  }
+  const catId = askable[Math.floor(Math.random()*askable.length)];
+  const missing = missingInCategory(botIdx, catId);
+  const cardName = missing[Math.floor(Math.random()*missing.length)].naam;
+
+  const otherPlayers = [0,1,2,3].filter(i=> i!==botIdx && G.hands[i].length>0);
+  if(otherPlayers.length===0){ G.over=true; render(); return; }
+  const targetIdx = otherPlayers[Math.floor(Math.random()*otherPlayers.length)];
+
+  logMsg(`<b>${PLAYER_NAMES[botIdx]}</b> vraagt <b>${PLAYER_NAMES[targetIdx]}</b> om de kaart <b>${cardName}</b>.`);
+  render();
+
+  setTimeout(()=>{
+    const target = G.hands[targetIdx];
+    const idxInTarget = target.findIndex(c=> c.catId===catId && c.naam===cardName);
+    if(idxInTarget>-1){
+      const [card] = target.splice(idxInTarget,1);
+      G.hands[botIdx].push(card);
+      logMsg(`✅ Kloppend! <b>${PLAYER_NAMES[botIdx]}</b> krijgt de kaart en mag opnieuw vragen.`);
+      checkQuartetComplete(botIdx, catId);
+      if(!endGameIfNeeded()){ render(); maybeRunBotTurn(); } else render();
+    } else {
+      logMsg(`❌ <b>${PLAYER_NAMES[targetIdx]}</b> heeft hem niet. De beurt gaat naar ${PLAYER_NAMES[targetIdx]}.`);
+      G.turn = targetIdx;
+      if(!endGameIfNeeded()){ render(); maybeRunBotTurn(); } else render();
+    }
+  }, 900);
+}
+
+function maybeRunBotTurn(){
+  if(G.over) return;
+  if(G.turn===0) return;
+  if(G.hands[G.turn].length===0){
+    G.turn = nextAlivePlayer(G.turn);
+    render();
+    if(G.turn!==0 && !G.over) setTimeout(()=>maybeRunBotTurn(), 500);
+    return;
+  }
+  setTimeout(()=> botTakeTurn(G.turn), 650);
+}
+
+/* =========================================================================
+   RENDERING
+   ========================================================================= */
+function render(){
+  app.innerHTML = '';
+  app.appendChild(Topbar());
+  const main = document.createElement('main');
+  if(route==='home') main.appendChild(Home());
+  else if(route==='browse') main.appendChild(Browse());
+  else if(route==='game') main.appendChild(GameScreen());
+  app.appendChild(main);
+  const foot = document.createElement('div');
+  foot.className='footer-note';
+  foot.innerHTML = 'AI Kwartet — gemaakt om 24 AI-technieken spelenderwijs te leren kennen. De 6 categorieën zijn bepaald met behulp van AI-clustering (TF-IDF + K-Means), zie de handleiding.';
+  app.appendChild(foot);
+
+  if(route==='game' && G && G.modalQuartet){ app.appendChild(QuartetModal()); }
+  if(route==='rulesModal'){ /* not used, rules shown inline */ }
+}
+
+function Topbar(){
+  const bar = document.createElement('div');
+  bar.className='topbar';
+  bar.innerHTML = `
+    <div class="brand"><span class="dot"></span> AI Kwartet</div>
+    <div class="nav-links">
+      <button class="nav-btn" id="nav-browse">Kaartenboek</button>
+      <button class="nav-btn" id="nav-rules">Spelregels</button>
+      <button class="nav-btn primary" id="nav-play">Speel</button>
+    </div>`;
+  bar.querySelector('#nav-browse').onclick=()=>{ browseOpenCat=null; go('browse'); };
+  bar.querySelector('#nav-play').onclick=()=>{ if(!G) newGame(); go('game'); if(G.turn!==0) maybeRunBotTurn(); };
+  bar.querySelector('#nav-rules').onclick=()=> showRules();
+  return bar;
+}
+
+function Home(){
+  const wrap = document.createElement('div');
+  wrap.className='home-wrap';
+  wrap.innerHTML = `
+    <div class="home-copy">
+      <div class="eyebrow">Een kwartetspel over kunstmatige intelligentie</div>
+      <h1>Leer 24 AI-technieken kennen door ze te verzamelen.</h1>
+      <p class="lead">Speel het klassieke kwartetspel tegen drie AI-tegenstanders, of blader rustig door het kaartenboek. Elke kaart legt in vier stappen uit hoe een techniek werkt, waar hij voor gebruikt wordt, welke data hij nodig heeft en waar je op moet letten.</p>
+      <div class="home-actions">
+        <button class="btn-lg solid" id="start-game">Start het spel</button>
+        <button class="btn-lg ghost" id="start-browse">Bekijk de kaarten</button>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>24</b><span>AI-technieken</span></div>
+        <div class="stat"><b>6</b><span>kwartetten</span></div>
+        <div class="stat"><b>4</b><span>spelers (jij + 3 bots)</span></div>
+      </div>
+    </div>
+    <div class="hero-fan" id="hero-fan"></div>
+  `;
+  wrap.querySelector('#start-game').onclick=()=>{ newGame(); go('game'); if(G.turn!==0) maybeRunBotTurn(); };
+  wrap.querySelector('#start-browse').onclick=()=>{ browseOpenCat=null; go('browse'); };
+
+  const fan = wrap.querySelector('#hero-fan');
+  const sample = CATEGORIES.slice(0,4);
+  sample.forEach((cat,i)=>{
+    const el = document.createElement('div');
+    el.className = 'hero-card hc'+(i+1);
+    el.innerHTML = `
+      <span class="tag" style="background:${cat.kleur}">${cat.kort}</span>
+      <div class="icon">${cat.icon}</div>
+      <div class="name">${cat.cards[0].naam}</div>
+      <div class="fill"></div>
+      <div class="bar"></div><div class="bar" style="width:70%"></div>`;
+    fan.appendChild(el);
+  });
+  return wrap;
+}
+
+function Browse(){
+  const wrap = document.createElement('div');
+  wrap.className='browse-wrap';
+  if(browseOpenCat===null){
+    wrap.innerHTML = `
+      <div class="browse-header">
+        <h2>Kaartenboek</h2>
+        <p>Alle 6 categorieën met elk 4 AI-technieken. Klik op een categorie om alle kaarten te lezen — handig om je voor te bereiden op het spel of om na te studeren.</p>
+      </div>
+      <div class="cat-grid" id="cat-grid"></div>`;
+    const grid = wrap.querySelector('#cat-grid');
+    CATEGORIES.forEach(cat=>{
+      const tile = document.createElement('div');
+      tile.className='cat-tile';
+      tile.style.borderLeft = `4px solid ${cat.kleur}`;
+      tile.innerHTML = `
+        <div class="icon">${cat.icon}</div>
+        <h3>${cat.naam}</h3>
+        <p>${cat.sub}</p>
+        <div class="count">${cat.cards.map(c=>c.naam).join(' · ')}</div>`;
+      tile.onclick=()=>{ browseOpenCat=cat.id; go('browse'); };
+      grid.appendChild(tile);
+    });
+  } else {
+    const cat = catInfo(browseOpenCat);
+    wrap.innerHTML = `
+      <button class="back-link" id="back-btn">← Terug naar alle categorieën</button>
+      <div class="cat-detail">
+        <div class="cat-detail-head">
+          <div class="icon" style="font-size:30px;">${cat.icon}</div>
+          <div><h2 style="margin:0;">${cat.naam}</h2><p style="margin:2px 0 0;color:#A9ACD6;">${cat.sub}</p></div>
+        </div>
+        <div class="card-grid" id="cg"></div>
+      </div>`;
+    wrap.querySelector('#back-btn').onclick=()=>{ browseOpenCat=null; go('browse'); };
+    const cg = wrap.querySelector('#cg');
+    cat.cards.forEach(c=> cg.appendChild(StudyCard(c, cat)));
+  }
+  return wrap;
+}
+
+function StudyCard(c, cat){
+  const el = document.createElement('div');
+  el.className='study-card';
+  el.innerHTML = `
+    <div class="head" style="background:${cat.kleur}">
+      <div class="eyebrow">${cat.icon} ${cat.naam}</div>
+      <h4>${c.naam}</h4>
+    </div>
+    <div class="body">
+      <div class="field"><div class="flabel">💡 Uitleg</div><p>${c.uitleg}</p></div>
+      <div class="field"><div class="flabel">🎯 Toepassing</div><p>${c.toepassing}</p></div>
+      <div class="field"><div class="flabel">📊 Benodigde data</div><p>${c.data}</p></div>
+      <div class="field"><div class="flabel">⚠️ Aandachtspunt</div><p>${c.aandachtspunt}</p></div>
+    </div>`;
+  return el;
+}
+
+function GameScreen(){
+  const wrap = document.createElement('div');
+  wrap.className='game-wrap';
+
+  const side = document.createElement('div');
+  side.className='side-panel';
+  [1,2,3].forEach(i=>{
+    const o = document.createElement('div');
+    o.className='opp-card'+(G.turn===i?' active':'');
+    o.innerHTML = `
+      <div class="name"><span>${PLAYER_NAMES[i]}</span><span class="n">${G.hands[i].length} kaarten</span></div>
+      <div class="opp-hand">${G.hands[i].map(()=>'<div class="mini-back"></div>').join('')}</div>
+      <div class="opp-sets">${G.collected[i].map(cid=>`<div class="set-chip" style="background:${catInfo(cid).kleur}" title="${catInfo(cid).naam}"></div>`).join('')}</div>`;
+    side.appendChild(o);
+  });
+  const you = document.createElement('div');
+  you.className='opp-card'+(G.turn===0?' active':'');
+  you.innerHTML = `
+    <div class="name"><span>Jij</span><span class="n">${G.hands[0].length} kaarten</span></div>
+    <div class="opp-sets">${G.collected[0].map(cid=>`<div class="set-chip" style="background:${catInfo(cid).kleur}" title="${catInfo(cid).naam}"></div>`).join('')}</div>`;
+  side.appendChild(you);
+  wrap.appendChild(side);
+
+  const table = document.createElement('div');
+  table.className='table-area';
+
+  const top = document.createElement('div');
+  top.className='table-top';
+  top.innerHTML = `<h2>${G.over? 'Spel afgelopen' : (G.turn===0? 'Jouw beurt' : PLAYER_NAMES[G.turn]+' is aan zet…')}</h2>`;
+  if(!G.over){
+    const nb = document.createElement('button');
+    nb.className='nav-btn';
+    nb.textContent='Nieuw spel';
+    nb.onclick=()=>{ newGame(); render(); if(G.turn!==0) maybeRunBotTurn(); };
+    top.appendChild(nb);
+  }
+  table.appendChild(top);
+
+  const log = document.createElement('div');
+  log.className='game-log';
+  log.innerHTML = G.log.map(l=>`<div class="entry">${l}</div>`).join('');
+  table.appendChild(log);
+
+  if(G.over){
+    table.appendChild(GameOverPanel());
+  } else if(G.turn===0){
+    table.appendChild(ActionZone());
+  } else {
+    const az = document.createElement('div');
+    az.className='action-zone';
+    az.innerHTML = `<h3>${PLAYER_NAMES[G.turn]} denkt na...</h3><p style="color:#9FA2C9;font-size:13.5px;margin:0;">Even geduld, de bot kiest een kaart om naar te vragen.</p>`;
+    table.appendChild(az);
+  }
+
+  const handArea = document.createElement('div');
+  handArea.className='hand-area';
+  handArea.innerHTML = `<div class="hand-label">Jouw hand</div>`;
+  const row = document.createElement('div');
+  row.className='hand-row';
+  G.hands[0].forEach(c=>{
+    const pc = document.createElement('div');
+    pc.className='pcard'+(G.selectedCardUid===c.uid?' selected':'');
+    pc.innerHTML = `<span class="tag" style="background:${c.kleur}">${c.catKort}</span><div class="icon">${c.icon}</div><div class="name">${c.naam}</div>`;
+    pc.onclick=()=>{ if(G.turn===0 && !G.over && !G.busy) playerSelectCard(c.uid); };
+    row.appendChild(pc);
+  });
+  handArea.appendChild(row);
+  table.appendChild(handArea);
+
+  setTimeout(()=>{ log.scrollTop = log.scrollHeight; }, 0);
+
+  wrap.appendChild(table);
+  return wrap;
+}
+
+function ActionZone(){
+  const az = document.createElement('div');
+  az.className='action-zone';
+
+  if(G.hands[0].length===0){
+    az.innerHTML = `<h3>Je hebt geen kaarten meer</h3><p style="color:#9FA2C9;font-size:13.5px;">Je wacht tot het spel verder gaat...</p>`;
+    setTimeout(()=>{ G.turn = nextAlivePlayer(0); render(); if(G.turn!==0) maybeRunBotTurn(); }, 900);
+    return az;
+  }
+
+  if(!G.selectedCardUid){
+    az.innerHTML = `<h3>Stap 1 — Kies een kaart uit je hand</h3><p style="color:#9FA2C9;font-size:13.5px;margin:0;">Kies een kaart uit een kwartet dat je nog aan het verzamelen bent. Daarna kies je welke ontbrekende kaart je wilt opvragen.</p>`;
+    return az;
+  }
+
+  const selCard = G.hands[0].find(c=>c.uid===G.selectedCardUid);
+  const catId = selCard.catId;
+  const missing = missingInCategory(0, catId);
+
+  if(!G.pendingCardName){
+    const h = document.createElement('h3');
+    h.textContent = `Stap 2 — Welke kaart van "${catInfo(catId).naam}" wil je?`;
+    az.appendChild(h);
+    const row = document.createElement('div');
+    row.className='choice-row';
+    missing.forEach(m=>{
+      const b = document.createElement('button');
+      b.className='choice-btn';
+      b.innerHTML = `${m.naam}`;
+      b.onclick=()=> playerChooseCardToAsk(m.naam);
+      row.appendChild(b);
+    });
+    az.appendChild(row);
+    return az;
+  }
+
+  const targets = [1,2,3].filter(i=> G.hands[i].length>0);
+  const h = document.createElement('h3');
+  h.textContent = `Stap 3 — Aan wie vraag je "${G.pendingCardName}"?`;
+  az.appendChild(h);
+  const row = document.createElement('div');
+  row.className='choice-row';
+  targets.forEach(t=>{
+    const b = document.createElement('button');
+    b.className='choice-btn';
+    b.innerHTML = `${PLAYER_NAMES[t]}<span class="sub">${G.hands[t].length} kaarten op hand</span>`;
+    b.onclick=()=> playerAsk(t, catId, G.pendingCardName);
+    row.appendChild(b);
+  });
+  az.appendChild(row);
+  return az;
+}
+
+function GameOverPanel(){
+  const el = document.createElement('div');
+  el.className='action-zone';
+  const scores = G.collected.map((arr,i)=>({name:PLAYER_NAMES[i], n:arr.length, cats:arr}));
+  scores.sort((a,b)=> b.n-a.n);
+  const winner = scores[0];
+  el.innerHTML = `<h3>🏁 Eindstand</h3>`;
+  const list = document.createElement('div');
+  list.style.display='flex'; list.style.flexDirection='column'; list.style.gap='8px';
+  scores.forEach(s=>{
+    const row = document.createElement('div');
+    row.style.display='flex'; row.style.alignItems='center'; row.style.gap='10px';
+    row.innerHTML = `<b style="min-width:90px;">${s.name}</b>
+      <div style="display:flex;gap:5px;">${s.cats.map(cid=>`<div class="set-chip" style="background:${catInfo(cid).kleur}"></div>`).join('') || '<span style="color:#7F82AE;font-size:12px;">geen kwartetten</span>'}</div>`;
+    list.appendChild(row);
+  });
+  el.appendChild(list);
+  const p = document.createElement('p');
+  p.style.marginTop='14px'; p.style.color='#C7C9E6'; p.style.fontSize='14px';
+  p.innerHTML = winner.n>0 ? `🏆 <b>${winner.name}</b> wint met ${winner.n} kwartet${winner.n===1?'':'ten'}!` : `Geen enkele speler verzamelde een kwartet dit spel — probeer het nog eens.`;
+  el.appendChild(p);
+  const btn = document.createElement('button');
+  btn.className='btn-lg solid'; btn.style.marginTop='16px';
+  btn.textContent='Nog een keer spelen';
+  btn.onclick=()=>{ newGame(); render(); if(G.turn!==0) maybeRunBotTurn(); };
+  el.appendChild(btn);
+  return el;
+}
+
+function QuartetModal(){
+  const cat = catInfo(G.modalQuartet.catId);
+  const backdrop = document.createElement('div');
+  backdrop.className='modal-backdrop';
+  const modal = document.createElement('div');
+  modal.className='modal';
+  modal.innerHTML = `
+    <div class="quartet-banner" style="background:${cat.kleur}">
+      <div class="icon">${cat.icon}</div>
+      <div><h3>Kwartet compleet: ${cat.naam}</h3><p>Je hebt alle 4 kaarten verzameld — hier is nog een keer alles wat ze uitleggen.</p></div>
+    </div>
+    <div id="qm-cards" style="display:flex; flex-direction:column; gap:14px;"></div>
+    <div class="modal-close-row"><button class="btn-lg solid" id="qm-close">Verder spelen</button></div>
+  `;
+  const cardsWrap = modal.querySelector('#qm-cards');
+  cat.cards.forEach(c=> cardsWrap.appendChild(StudyCard(c, cat)));
+  modal.querySelector('#qm-close').onclick=()=>{
+    G.modalQuartet=null;
+    render();
+    if(!G.over && G.turn!==0) maybeRunBotTurn();
+  };
+  backdrop.appendChild(modal);
+  return backdrop;
+}
+
+function showRules(){
+  const backdrop = document.createElement('div');
+  backdrop.className='modal-backdrop';
+  backdrop.innerHTML = `
+    <div class="modal">
+      <h2>Spelregels</h2>
+      <p class="lead">AI Kwartet speel je zoals een klassiek kwartetspel — met 24 kaarten verdeeld over 6 categorieën.</p>
+      <ol class="rules-list">
+        <li>Alle 24 kaarten worden geschud en verdeeld: jij en 3 bots krijgen elk 6 kaarten.</li>
+        <li>Ben jij aan de beurt? Kies een kaart uit je hand van een categorie waar je al minstens 1 kaart van hebt.</li>
+        <li>Kies welke ontbrekende kaart uit die categorie je wilt hebben, en aan welke tegenstander je het vraagt.</li>
+        <li>Heeft die speler de kaart? Dan krijg jij hem en mag je nog een keer vragen.</li>
+        <li>Heeft die speler de kaart niet? Dan gaat de beurt naar die speler.</li>
+        <li>Verzamel je alle 4 kaarten van een categorie? Dan leg je dat kwartet neer — én zie je alle 4 kaarten nog eens rustig uitgelegd.</li>
+        <li>Het spel is voorbij zodra alle 6 kwartetten verzameld zijn. Wie de meeste kwartetten heeft, wint.</li>
+      </ol>
+      <div class="modal-close-row"><button class="btn-lg solid" id="rules-close">Begrepen</button></div>
+    </div>`;
+  backdrop.querySelector('#rules-close').onclick=()=> backdrop.remove();
+  document.body.appendChild(backdrop);
+}
+
+render();
+</script>
+</body>
+</html>
