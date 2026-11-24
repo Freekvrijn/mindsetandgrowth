@@ -15,24 +15,52 @@ KNOWN = {
  '01 Reflectie gastcollege Rens Drost.docx': {
   'id': 'rens-drost', 'title': 'Reflectie gastcollege Rens Drost', 'week': 11,
   'status': 'Uitgewerkt', 'summary': 'De link tussen mijn ICT-achtergrond, Magento en AI.',
-  'sources': [('AI Mindset & Growth week 1-1.pdf', 3)],
+  'sources': [('AI Mindset & Growth week 11.pdf', 3)],
  },
  '02 Individuele opdrachten les 2.docx': {
   'id': 'vacatures', 'title': 'Vacatures en individuele reflecties', 'week': 12,
   'status': 'Individueel uitgewerkt', 'summary': 'Vijf vacatures, twee analyses en mijn eigen reflecties.',
   'note': 'Het gezamenlijke whiteboard en de gezamenlijke conclusie maak ik nog met mijn duopartner.',
-  'sources': [('AI Mindset & Growth week 1-2.pdf', 15)],
+  'sources': [('AI Mindset & Growth week 12.pdf', 15)],
  },
  '03 Huiswerk AI in de praktijk.docx': {
   'id': 'ai-in-de-praktijk', 'title': 'AI in de praktijk bij Carrefour', 'week': 12,
   'status': 'Uitgewerkt', 'summary': 'Een praktijkvoorbeeld over AI en productinformatie voor webshops.',
-  'sources': [('AI Mindset & Growth week 1-2.pdf', 19)],
+  'sources': [('AI Mindset & Growth week 12.pdf', 19)],
  },
  '04 Reflectie Alexandra invulversie.docx': {
   'id': 'feedback-alexandra', 'title': 'Reflectie op feedback van Alexandra', 'week': 14,
   'status': 'Nog invullen', 'summary': 'Een invulversie voor na de TikTok-pitch.',
   'note': 'De pitch en de feedback hebben nog niet plaatsgevonden. Deze reflectie is een voorbereiding.',
-  'sources': [('AI Mindset & Growth week 1-4.pdf', 5)],
+  'sources': [('AI Mindset & Growth week 14.pdf', 5)],
+ },
+ '05 Week 13 Mijn toegevoegde waarde concept.docx': {
+  'id': 'week-13-profiel', 'title': 'Mijn toegevoegde waarde', 'week': 13,
+  'status': 'Feedback nog nodig', 'summary': 'Een profieltekst met LeadFocus als concreet voorbeeld.',
+  'note': 'De profieltekst is voorbereid. Feedback van een medestudent en de aanpassing daarop staan nog open.',
+  'sources': [('AI Mindset & Growth week 13.pdf', 10)],
+ },
+ '06 Week 13 LinkedIn profiel en post concept.docx': {
+  'id': 'week-13-linkedin', 'title': 'LinkedIn profiel en post', 'week': 13,
+  'status': 'Teksten voorbereid', 'summary': 'Kopregel, Info, projectomschrijving en een post over de minor.',
+  'note': 'De teksten zijn uitgewerkt. De echte profielwijzigingen, het plaatsen van de post en de vereiste screenshots zijn nog nodig.',
+  'sources': [('AI Mindset & Growth week 13.pdf', 11)],
+ },
+ '07 Week 13 CV Freek van Rijn.docx': {
+  'id': 'week-13-cv', 'title': 'Mijn CV', 'week': 13,
+  'status': 'Uitgewerkt', 'summary': 'Een CV gericht op ICT, e-commerce en AI.',
+  'sources': [('AI Mindset & Growth week 13.pdf', 12)],
+ },
+ '08 Week 13 CV verantwoording en reflectie.docx': {
+  'id': 'week-13-cv-reflectie', 'title': 'Verantwoording en reflectie op mijn CV', 'week': 13,
+  'status': 'Uitgewerkt', 'summary': 'Mijn keuzes in het CV en het gebruik van AI.',
+  'sources': [('AI Mindset & Growth week 13.pdf', 12)],
+ },
+ '09 Week 13 Motivatiebrief MailBlue concept.docx': {
+  'id': 'week-13-motivatiebrief', 'title': 'Motivatiebrief voor MailBlue', 'week': 13,
+  'status': 'Concept', 'summary': 'Motivatiebrief en reflectie bij de gekozen vacature uit week 12.',
+  'note': 'Dit is een motivatiebrief voor de schoolopdracht. Er is geen sollicitatie verstuurd.',
+  'sources': [('AI Mindset & Growth week 13.pdf', 13)],
  },
 }
 
@@ -91,7 +119,7 @@ def sync(source):
   index = re.sub(r'((?:src|href)="' + re.escape(relative) + r')(?:\?v=[^"\s]*)?"',
                  lambda m: m[1] + '?v=' + version + '"', index)
  index_file.write_text(index)
- print(f'Periode 2 bijgewerkt: {len(entries)} Word-bestanden en {len(list(lessons.glob("*.pdf")))} presentaties.')
+ print(f'Periode 2 bijgewerkt: {len(entries)} Word-bestanden en {len(list(source.glob("*.pdf")))} lespresentaties gesynchroniseerd.')
 
 if __name__ == '__main__':
  sync(Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_SOURCE)

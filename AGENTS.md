@@ -2,6 +2,7 @@
 
 - Dit is het portfolio van Freek van Rijn. Bewaar periode 1 en voeg nieuw werk herkenbaar toe aan periode 2.
 - Freek is ICT'er, werkt met Magento en volgt AI Marketing- en Salesadviseur als minor.
+- Hij zit in het laatste jaar van HBO-Informatica bij Avans en werkt sinds oktober 2026 als AI & Digital Development Specialist bij Banzu.
 - Schrijf in gewoon, informeel Nederlands op het niveau van een tweedejaars hbo-student. Geen emdashes of onnodige vaktermen.
 - Houd de website rustig. Gebruik korte titels en eenvoudige lijsten. Toon lange teksten pas bij het openen van een opdracht.
 - Houd periode 1 en periode 2 duidelijk uit elkaar in de navigatie, overzichten en uitwerkingen.

@@ -8,7 +8,7 @@ Website: https://freekvanrijn.nl/mindsetandgrowth/
 
 - **Overzicht:** kies periode 1 of periode 2.
 - **Periode 1:** 21 opdrachten in zes uitklapbare weken. De 34 oorspronkelijke inleverbestanden blijven beschikbaar. Reflecties, ontwikkeling en het AI-manifest staan bij deze periode.
-- **Periode 2:** opdrachten rond ICT, e-commerce en persoonlijke ontwikkeling. De vier huidige Word-bestanden zijn op de site leesbaar en downloadbaar. De reflectie op Alexandra staat als invulversie vermeld.
+- **Periode 2:** opdrachten rond ICT, e-commerce en persoonlijke ontwikkeling. De negen huidige Word-bestanden zijn op de site leesbaar en downloadbaar. Week 13 bevat een profieltekst, LinkedIn-voorstel, CV met reflectie en een motivatiebrief voor MailBlue. Feedback van een medestudent en de echte LinkedIn-aanpassingen, post en screenshots staan nog open. De reflectie op Alexandra staat als invulversie vermeld.
 
 De overzichten gebruiken korte titels en eenvoudige lijsten. Volledige uitwerkingen staan achter een klik. De presentatiemodus hoort bij periode 1.
 
