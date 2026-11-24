@@ -1,40 +1,49 @@
-# Growth Map — Freek van Rijn
+# Mindset en Growth
 
-Interactief portfolio voor Mindset & Growth: 6 hoofdstukken, 21 opdrachten en alle 34 definitieve inleverbestanden. Het portfolio gebruikt alleen lokale HTML, CSS, JavaScript, lettertypen en media. Er zijn geen accounts, API-sleutels of buildstappen nodig.
+Het portfolio van Freek van Rijn voor de minor AI Marketing- en Salesadviseur.
 
-## Presenteren
+Website: https://freekvanrijn.nl/mindsetandgrowth/
 
-Open `index.html` in Chrome of dubbelklik op `Start-presentatie.command` op de Mac. Vanaf een terminal kan het ook met `python3 scripts/serve.py`. De lokale server luistert alleen op `127.0.0.1`.
+## Indeling
 
-- **P**: start of hervat de presentatie met negen stappen.
-- **← / →**: vorige of volgende stap; werkt ook met Page Up / Page Down.
-- **N**: spreeknotities tonen of verbergen. De notities zijn op hetzelfde scherm zichtbaar.
-- **F**: volledig scherm.
-- **Esc**: sluit eerst de geopende uitwerking, daarna de presentatie.
-- **/**: zet de cursor in de zoekbalk op de portfoliopagina.
+- **Overzicht:** kies periode 1 of periode 2.
+- **Periode 1:** 21 opdrachten in zes uitklapbare weken. De 34 oorspronkelijke inleverbestanden blijven beschikbaar. Reflecties, ontwikkeling en het AI-manifest staan bij deze periode.
+- **Periode 2:** opdrachten rond ICT, e-commerce en persoonlijke ontwikkeling. De vier huidige Word-bestanden zijn op de site leesbaar en downloadbaar. De reflectie op Alexandra staat als invulversie vermeld.
 
-Video en audio starten alleen op verzoek. Bij afsluiten stopt het afspelen. De presentatie onthoudt lokaal de laatste stap; klik op het eerste bolletje om opnieuw te beginnen. Open het kwartet vanuit de uitwerking eventueel in een apart tabblad voor meer ruimte.
+De overzichten gebruiken korte titels en eenvoudige lijsten. Volledige uitwerkingen staan achter een klik. De presentatiemodus hoort bij periode 1.
 
-## Inhoud
+## Openen
 
-- `data/content.js`: hoofdstukken, opdrachtinformatie en de presentatieroute.
-- `data/portfolio.js`: de leesbare documenten, bestandsinformatie en scorekaartgegevens; werkt ook zonder server.
-- `data/portfolio.json`: dezelfde geïmporteerde brondata voor controle.
-- `portfolio/definitief/`: ongewijzigde kopieën van de 34 bestanden uit de definitieve Inlevermap.
-- `portfolio/opdrachten/`: het eerdere werkarchief; de nieuwe site verwijst voor uitwerkingen naar de definitieve bestanden.
-- `portfolio/presentaties/`: het oorspronkelijke lesmateriaal, inclusief week 6.
-- `assets/opdracht-slides/`: de oorspronkelijke opdrachtdia’s voor week 1–5.
-- `assets/media/`: lokale videoposters, posterweergave en magazijnillustratie.
-- `assets/fonts/`: lokaal opgeslagen lettertypen, zodat de site geen fontdienst nodig heeft.
+Open `index.html` in een browser, of start `python3 scripts/serve.py`. Voor de website zijn geen accounts, API-sleutels, externe lettertypen of buildstappen nodig.
 
-Word-documenten worden als tekst, koppen, lijsten, tabellen en bronlinks op de site weergegeven. De originele opmaak blijft in de downloadbare Word-bestanden behouden. De interactieve webweergave van TravelHelp volgt de drie vaste routes uit het PowerPoint-prototype; dit is geen live AI-chatbot. De twee checklists zijn met een schuifregelaar te vergelijken. LeadFocus heeft een klikbaar systeemoverzicht. De groeiweergave is afgeleid van de twaalf beoordelingen uit de twee originele Excel-bestanden; er zijn geen fictieve scores toegevoegd.
+De bestaande directe links zoals `#week-3` en `#opdracht-3-1` blijven werken. De nieuwe periodes staan op `#periode-1` en `#periode-2`.
 
-## Inhoud bijwerken
+## Periode 2 bijwerken
 
-`python3 scripts/build_content.py '/pad/naar/Mindset & Growth'`
+Maak of wijzig eerst de DOCX-bestanden in de map `Uitwerkingen` van periode 2. Importeer ze daarna:
 
-Voor import zijn Python met `openpyxl`, `ffmpeg` en `ffprobe` nodig. Voor het openen en presenteren niet. De importer wijzigt de oorspronkelijke bestanden niet.
+```bash
+python3 scripts/sync_periode2.py '/pad/naar/Periode 2/Mindset & Growth'
+```
+
+Zonder argument gebruikt het script Freeks bestaande schoolmap. Het kopieert de Word-bestanden en presentaties naar `portfolio/periode-2/` en maakt de leesbare inhoud in `data/periode2.js` en `data/periode2.json` opnieuw aan. Bestaande bestanden in de bronmap blijven ongewijzigd. Nieuwe Word-bestanden worden automatisch meegenomen. Geef een concept of invulversie ook zo'n herkenbare bestandsnaam. Voor een eigen week, titel of toelichting kun je de gegevens in `KNOWN` aanvullen.
+
+Het script heeft alleen Python 3 nodig. De versies van de gewijzigde scripts en stijlen in `index.html` worden bijgewerkt, zodat bezoekers de nieuwe inhoud krijgen.
+
+Controleer de gewijzigde pagina's en downloads. Commit daarna alleen de bijbehorende bestanden en push naar `origin/main`. Dit is de vaste werkwijze die Freek op 24 november 2026 heeft gevraagd. De afspraken staan ook in `AGENTS.md`.
+
+## Periode 1
+
+`data/content.js` bevat de opdrachtinformatie en de presentatieroute. `data/portfolio.js` en `data/portfolio.json` bevatten de leesbare documenten en scorekaartgegevens. De oorspronkelijke bestanden staan in `portfolio/definitief/`; ouder werk staat in `portfolio/opdrachten/`.
+
+De importer voor periode 1 blijft beschikbaar:
+
+```bash
+python3 scripts/build_content.py '/pad/naar/Periode 1/Mindset & Growth'
+```
+
+Die importer heeft `openpyxl`, `ffmpeg` en `ffprobe` nodig. Deze pakketten zijn niet nodig om de website te bekijken of periode 2 bij te werken.
 
 ## Publicatie
 
-De volledige website wordt vanuit `main` via de bestaande GitHub Pages-configuratie gepubliceerd op https://freekvanrijn.nl/mindsetandgrowth/. Alle persoonlijke reflecties en originele inleverbestanden zijn op uitdrukkelijk verzoek opgenomen. Op de pagina Reflecties staan de 19 aanwezige persoonlijke reflecties rechtstreeks leesbaar; ze zijn ook bij de bijbehorende opdrachten beschikbaar. Het oorspronkelijke bestand blijft altijd downloadbaar.
+De bestaande GitHub Pages-configuratie publiceert vanuit `main`. De persoonlijke reflecties en originele bestanden staan op verzoek van Freek in dit portfolio. Concepten en invulversies worden niet als afgerond werk gepresenteerd.

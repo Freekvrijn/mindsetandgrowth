@@ -4,38 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f4ef">
-  <meta name="description" content="De interactieve Growth Map van Freek van Rijn. Zes weken over AI-technieken, systemen, kritisch denken en ethiek. Bekijk alle 21 opdrachten, uitwerkingen en mijn persoonlijke ontwikkeling.">
-  <title>Growth Map — Freek van Rijn</title>
+  <meta name="description" content="De interactieve Growth Map van Freek van Rijn. Opdrachten en reflecties uit periode 1 en periode 2, met leesbare uitwerkingen en de originele bestanden.">
+  <title>Mindset & Growth | Freek van Rijn</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261103">
+  <link rel="stylesheet" href="styles.css?v=20261124">
+  <link rel="stylesheet" href="portfolio.css?v=efbe0c28ed0f">
   <link rel="preload" href="assets/fonts/space-grotesk-bold.ttf" as="font" type="font/ttf" crossorigin>
-  <script defer src="data/portfolio.js?v=20261103"></script>
-  <script defer src="data/content.js?v=20261103"></script>
-  <script defer src="app.js?v=20261103"></script>
+  <script defer src="data/portfolio.js?v=20261124"></script>
+  <script defer src="data/content.js?v=edfd38316a3f"></script>
+  <script defer src="data/periode2.js?v=caf90c717371"></script>
+  <script defer src="app.js?v=b05f1f8e0cde"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Naar de inhoud</a>
   <aside class="sidebar" aria-label="Hoofdnavigatie">
     <a class="brand" href="#overzicht" aria-label="Growth Map, naar overzicht"><span class="brand-mark">m<span>g</span><i></i></span><span>mindset<span class="brand-second">& growth</span></span></a>
-    <div class="sidebar-label">MIJN WORKSPACE</div>
-    <nav class="main-nav">
-      <a href="#overzicht" data-nav="overzicht"><span data-icon="grid"></span>Overzicht<span class="nav-dot"></span></a>
-      <a href="#portfolio" data-nav="portfolio"><span data-icon="folder"></span>Mijn portfolio<span class="nav-count">21</span></a>
-      <a href="#reflecties" data-nav="reflecties"><span data-icon="note"></span>Mijn reflecties</a>
-      <a href="#groei" data-nav="groei"><span data-icon="chart"></span>Mijn ontwikkeling</a>
-      <a href="#manifest" data-nav="manifest"><span data-icon="fingerprint"></span>Mijn AI-manifest</a>
+    <nav class="main-nav" aria-label="Periodes">
+      <a href="#overzicht" data-nav="overzicht">Overzicht</a>
+      <a href="#periode-1" data-nav="periode-1">Periode 1</a>
+      <a href="#periode-2" data-nav="periode-2">Periode 2</a>
     </nav>
-    <div class="sidebar-label chapter-label">DE ZES HOOFDSTUKKEN</div>
-    <nav id="week-nav" class="chapter-nav" aria-label="Weken"></nav>
     <div class="sidebar-bottom"><div class="ready-indicator"><span></span> Klaar om te ontdekken</div><div class="profile"><span class="avatar">FvR</span><div><strong>Freek van Rijn</strong><span>Minor · Mindset & Growth</span></div><span data-icon="arrow-up-right"></span></div></div>
   </aside>
   <div class="app-shell">
-    <header class="topbar"><div class="breadcrumbs"><span>Mijn leerreis</span><span>/</span><strong id="breadcrumb">Overzicht</strong></div><div class="top-actions"><button id="help-button" class="icon-button" aria-label="Hulp en sneltoetsen" title="Hulp en sneltoetsen (?)"><span data-icon="help"></span></button><button id="fullscreen-button" class="icon-button" aria-label="Volledig scherm" title="Volledig scherm (F)"><span data-icon="expand"></span></button><button class="button button-dark button-small" id="start-presentation"><span data-icon="play"></span><span>Presenteren</span><kbd>P</kbd></button></div></header>
+    <header class="topbar"><div class="breadcrumbs"><span>Portfolio</span><span>/</span><strong id="breadcrumb">Overzicht</strong></div><div class="top-actions"><button id="help-button" class="icon-button" aria-label="Hulp en sneltoetsen" title="Hulp en sneltoetsen (?)"><span data-icon="help"></span></button><button id="fullscreen-button" class="icon-button" aria-label="Volledig scherm" title="Volledig scherm (F)"><span data-icon="expand"></span></button><button class="button button-dark button-small" id="start-presentation"><span data-icon="play"></span><span>Presentatie periode 1</span></button></div></header>
     <main id="main" tabindex="-1"></main>
     <footer class="footer"><span>Portfolio · Mindset & Growth</span><span>Freek van Rijn <i>·</i> Mindset & Growth 2026</span></footer>
   </div>
   <dialog id="assignment-dialog" class="detail-dialog" aria-labelledby="detail-title"></dialog>
-  <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-title"><button class="icon-button modal-close" data-close-help aria-label="Sluiten"><span data-icon="x"></span></button><span class="eyebrow">EVEN OP WEG</span><h2 id="help-title">Het podium is van jou.</h2><p>Alles staat klaar om aan te raken, te bekijken en te bespreken.</p><div class="shortcut-list"><div><span>Start of hervat de presentatie</span><kbd>P</kbd></div><div><span>Volledig scherm</span><kbd>F</kbd></div><div><span>Vorige / volgende presentatiestap</span><span><kbd>←</kbd> <kbd>→</kbd></span></div><div><span>Spreeknotities in de presentatie</span><kbd>N</kbd></div><div><span>Sluit een uitwerking of presentatie</span><kbd>Esc</kbd></div></div><p class="help-note">Alle 21 opdrachten hebben hun definitieve bestanden. Word-documenten lees je direct op de site; de originelen download je bij de opdracht. Audio en video starten pas als jij op afspelen drukt.</p><button class="button button-orange" data-close-help>Ik ben er klaar voor <span data-icon="arrow-right"></span></button></dialog>
+  <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-title"><button class="icon-button modal-close" data-close-help aria-label="Sluiten"><span data-icon="x"></span></button><span class="eyebrow">EVEN OP WEG</span><h2 id="help-title">Portfolio bekijken</h2><p>Kies eerst periode 1 of periode 2. Open daarna een opdracht.</p><div class="shortcut-list"><div><span>Start of hervat de presentatie</span><kbd>P</kbd></div><div><span>Volledig scherm</span><kbd>F</kbd></div><div><span>Vorige / volgende presentatiestap</span><span><kbd>←</kbd> <kbd>→</kbd></span></div><div><span>Spreeknotities in de presentatie</span><kbd>N</kbd></div><div><span>Sluit een uitwerking of presentatie</span><kbd>Esc</kbd></div></div><p class="help-note">Word-documenten kun je op de site lezen en downloaden. De presentatie hoort bij periode 1. Audio en video starten pas als je op afspelen drukt.</p><button class="button button-orange" data-close-help>Sluiten</button></dialog>
   <section id="presentation" class="presentation" aria-label="Presentatie" aria-hidden="true" hidden></section>
   <div id="toast" class="toast" role="status"></div>
   <noscript><div class="noscript-message"><h1>Mijn Growth Map</h1><p>Schakel JavaScript in om de interactieve presentatie en alle uitwerkingen te bekijken.</p><a href="portfolio/definitief/6.4%20-%20Persoonlijk%20AI-manifest%20en%20reflectie%20-%20Freek%20van%20Rijn.docx">Download mijn AI-manifest</a></div></noscript>
